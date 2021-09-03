@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+ATTACK_RATE="${ATTACK_RATE:=50}"
+ATTACK_DURATION="${ATTACK_DURATION:=10}"
+
 echo "Waiting an arbitrary amount of time to ensure the database is ready to accept connections"
 sleep 30
 
@@ -89,13 +92,13 @@ warmup() {
 }
 
 warmup
-get_todoItems_sort 50 10
-get_todoItem_includes 50 10
-get_todoItems_pagination 50 10
-get_todoItems_filter 50 10
-get_todoItems_fields 50 10
-get_todoItem_tags 50 10
-post_tag 50 10
+get_todoItems_sort $ATTACK_RATE $ATTACK_DURATION
+get_todoItem_includes $ATTACK_RATE $ATTACK_DURATION
+get_todoItems_pagination $ATTACK_RATE $ATTACK_DURATION
+get_todoItems_filter $ATTACK_RATE $ATTACK_DURATION
+get_todoItems_fields $ATTACK_RATE $ATTACK_DURATION
+get_todoItem_tags $ATTACK_RATE $ATTACK_DURATION
+post_tag $ATTACK_RATE $ATTACK_DURATION
 
 if [ "$UPLOAD_RESULTS" = "true" ]; then
     echo "Test complete. Writing summary and uploading results."
